@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350" role="img" aria-label="ReviewLens pipeline flowchart">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5B8DEF"/>
+    </marker>
+    <style>
+      .t{font-family:'Plus Jakarta Sans',system-ui,sans-serif;fill:#EAF0F8}
+      .h{font-weight:700;font-size:25px}
+      .s{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:16.5px;fill:#9FB0C8}
+      .n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;font-size:17px;fill:#0F1B2D}
+      .chip{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:14px;fill:#9CC3FF}
+      .box{fill:#15253C;stroke:#2B3F5E;stroke-width:1.5}
+      .core{fill:#17305A;stroke:#5B8DEF;stroke-width:2}
+      .out{fill:#15253C;stroke:#2B3F5E;stroke-width:1.5}
+      .ln{stroke:#5B8DEF;stroke-width:2.5;fill:none}
+    </style>
+  </defs>
+
+  <rect width="1080" height="1350" fill="#0F1B2D"/>
+  <rect x="0" y="0" width="1080" height="6" fill="#5B8DEF"/>
+
+  <!-- header -->
+  <text x="90" y="92" class="chip" style="font-size:15px;letter-spacing:2.5px">TRACK 1 · GEN AI · LANGCHAIN</text>
+  <text x="90" y="146" class="t" style="font-weight:800;font-size:50px">ReviewLens</text>
+  <text x="90" y="182" class="t" style="font-size:21px;fill:#9FB0C8">240 raw reviews in. A Monday-morning report out.</text>
+
+  <!-- 1 upload -->
+  <rect x="90" y="214" width="900" height="84" rx="12" class="box"/>
+  <circle cx="136" cy="256" r="18" fill="#5B8DEF"/><text x="136" y="262" text-anchor="middle" class="n">1</text>
+  <text x="172" y="250" class="t h">Upload the week's reviews</text>
+  <text x="172" y="279" class="s">CSV · Google, Zomato, Swiggy, Amazon · English / Tamil / Tanglish</text>
+  <rect x="868" y="238" width="98" height="30" rx="15" fill="#1D3456"/><text x="917" y="258" text-anchor="middle" class="chip">Manager</text>
+
+  <line x1="540" y1="298" x2="540" y2="320" class="ln" marker-end="url(#ah)"/>
+
+  <!-- 2 validate -->
+  <rect x="90" y="324" width="900" height="84" rx="12" class="box"/>
+  <circle cx="136" cy="366" r="18" fill="#5B8DEF"/><text x="136" y="372" text-anchor="middle" class="n">2</text>
+  <text x="172" y="360" class="t h">Validate</text>
+  <text x="172" y="389" class="s">required columns · drop empty rows · de-duplicate review IDs</text>
+  <rect x="878" y="348" width="88" height="30" rx="15" fill="#1D3456"/><text x="922" y="368" text-anchor="middle" class="chip">pandas</text>
+
+  <line x1="540" y1="408" x2="540" y2="430" class="ln" marker-end="url(#ah)"/>
+
+  <!-- 3 classify (core) -->
+  <rect x="90" y="434" width="900" height="168" rx="12" class="core"/>
+  <circle cx="136" cy="476" r="18" fill="#9CC3FF"/><text x="136" y="482" text-anchor="middle" class="n">3</text>
+  <text x="172" y="470" class="t h">Classify every review</text>
+  <text x="172" y="499" class="s">prompt | gpt-5.4-mini.with_structured_output(Pydantic)</text>
+  <text x="172" y="524" class="s">batch(max_concurrency=5) · invalid value → retry ×2 → needs_review</text>
+  <rect x="172" y="542" width="118" height="36" rx="8" fill="#0F1B2D"/><text x="231" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">sentiment</text>
+  <rect x="298" y="542" width="104" height="36" rx="8" fill="#0F1B2D"/><text x="350" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">category</text>
+  <rect x="410" y="542" width="96" height="36" rx="8" fill="#0F1B2D"/><text x="458" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">urgency</text>
+  <rect x="514" y="542" width="196" height="36" rx="8" fill="#0F1B2D"/><text x="612" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">English summary</text>
+  <rect x="718" y="542" width="248" height="36" rx="8" fill="#0F1B2D"/><text x="842" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">reply in their language</text>
+  <rect x="826" y="458" width="140" height="30" rx="15" fill="#22457A"/><text x="896" y="478" text-anchor="middle" class="chip">LangChain · map</text>
+
+  <line x1="540" y1="602" x2="540" y2="624" class="ln" marker-end="url(#ah)"/>
+
+  <!-- 4 store + compare -->
+  <rect x="90" y="628" width="900" height="84" rx="12" class="box"/>
+  <circle cx="136" cy="670" r="18" fill="#5B8DEF"/><text x="136" y="676" text-anchor="middle" class="n">4</text>
+  <text x="172" y="664" class="t h">Store the week, compare with last week</text>
+  <text x="172" y="693" class="s">counts and % in pandas, never the LLM · ▲ ▼ trend arrows</text>
+  <rect x="818" y="652" width="148" height="30" rx="15" fill="#1D3456"/><text x="892" y="672" text-anchor="middle" class="chip">SQLite · pandas</text>
+
+  <line x1="540" y1="712" x2="540" y2="734" class="ln" marker-end="url(#ah)"/>
+
+  <!-- 5 report -->
+  <rect x="90" y="738" width="900" height="84" rx="12" class="box"/>
+  <circle cx="136" cy="780" r="18" fill="#5B8DEF"/><text x="136" y="786" text-anchor="middle" class="n">5</text>
+  <text x="172" y="774" class="t h">Write the weekly report</text>
+  <text x="172" y="803" class="s">top complaints + praise backed by review IDs · 3 action items</text>
+  <rect x="808" y="762" width="158" height="30" rx="15" fill="#22457A"/><text x="887" y="782" text-anchor="middle" class="chip">LangChain · reduce</text>
+
+  <!-- fan out -->
+  <path d="M540 822 V846 H235 V870" class="ln" marker-end="url(#ah)"/>
+  <path d="M540 846 V870" class="ln" marker-end="url(#ah)"/>
+  <path d="M540 846 H845 V870" class="ln" marker-end="url(#ah)"/>
+
+  <!-- outputs -->
+  <rect x="90" y="874" width="290" height="150" rx="12" class="out"/>
+  <text x="114" y="912" class="t" style="font-weight:700;font-size:21px">Role dashboards</text>
+  <text x="114" y="944" class="s" style="font-size:15px">Owner · trends &amp; report</text>
+  <text x="114" y="970" class="s" style="font-size:15px">Manager · upload &amp; tags</text>
+  <text x="114" y="996" class="s" style="font-size:15px">Support · urgent queue</text>
+
+  <rect x="395" y="874" width="290" height="150" rx="12" class="out"/>
+  <text x="419" y="912" class="t" style="font-weight:700;font-size:21px">Excel export</text>
+  <text x="419" y="944" class="s" style="font-size:15px">enriched CSV, UTF-8 BOM</text>
+  <text x="419" y="970" class="s" style="font-size:15px">Tamil script intact</text>
+  <text x="419" y="996" class="s" style="font-size:15px">urgent queue CSV</text>
+
+  <rect x="700" y="874" width="290" height="150" rx="12" class="out"/>
+  <text x="724" y="912" class="t" style="font-weight:700;font-size:21px">Monday email</text>
+  <text x="724" y="944" class="s" style="font-size:15px">scheduler container</text>
+  <text x="724" y="970" class="s" style="font-size:15px">09:00 IST · HTML + CSV</text>
+  <text x="724" y="996" class="s" style="font-size:15px">reminder if no new week</text>
+
+  <!-- results strip -->
+  <text x="90" y="1084" class="chip" style="font-size:14px;letter-spacing:2px">WEEK 41 VS WEEK 40 · LIVE RUN</text>
+  <text x="90" y="1126" class="t" style="font-size:24px;font-weight:700">Delivery complaints <tspan fill="#4ADE80">▼ 44</tspan><tspan fill="#5B6B85"> · </tspan>Packaging <tspan fill="#F87171">▲ 46</tspan><tspan fill="#5B6B85"> · </tspan>Urgent <tspan fill="#4ADE80">▼ 22</tspan></text>
+  <text x="90" y="1160" class="s">240 reviews tagged in 108 s · 0 failures · Tamil &amp; Tanglish summaries in English</text>
+
+  <!-- deploy band -->
+  <rect x="0" y="1206" width="1080" height="144" fill="#0B1424"/>
+  <text x="90" y="1250" class="chip" style="font-size:14px;letter-spacing:2px">SHIPPED</text>
+  <g class="chip" style="font-size:15px">
+    <rect x="90" y="1270" width="150" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="165" y="1296" text-anchor="middle">Streamlit UI</text>
+    <rect x="252" y="1270" width="100" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="302" y="1296" text-anchor="middle">Docker</text>
+    <rect x="364" y="1270" width="184" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="456" y="1296" text-anchor="middle">Traefik + HTTPS</text>
+    <rect x="560" y="1270" width="172" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="646" y="1296" text-anchor="middle">Hostinger VPS</text>
+    <rect x="744" y="1270" width="246" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="867" y="1296" text-anchor="middle">43 automated tests</text>
+  </g>
+</svg>

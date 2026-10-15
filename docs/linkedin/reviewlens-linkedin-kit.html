@@ -1,0 +1,268 @@
+<title>ReviewLens LinkedIn Kit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column — post first (the thing to copy), then the flowchart, then supporting facts */
+:root {
+  --bg: #F3F6FA; --surface: #FFFFFF; --fg: #0F1B2D; --muted: #55657D; --line: #DCE3EC;
+  --accent: #1D4ED8; --accent-soft: #E6EEFF; --good: #15803D; --bad: #B91C1C; --on-accent: #FFFFFF;
+  --display: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0B1424; --surface: #13223A; --fg: #E8EEF7; --muted: #9AABC3; --line: #26395A;
+  --accent: #7EA8FF; --accent-soft: #1A2F55; --good: #4ADE80; --bad: #F87171; --on-accent: #0B1424; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0B1424; --surface: #13223A; --fg: #E8EEF7; --muted: #9AABC3; --line: #26395A;
+  --accent: #7EA8FF; --accent-soft: #1A2F55; --good: #4ADE80; --bad: #F87171; --on-accent: #0B1424; color-scheme: dark }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--display); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 760px; margin: 0 auto; padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 36px; }
+header { display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(28px, 5vw, 38px); font-weight: 800; line-height: 1.15; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; max-width: 60ch; }
+h2 { font-size: 20px; font-weight: 700; margin: 0; text-wrap: balance; }
+section { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.sec-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.sub { color: var(--muted); font-size: 14px; margin: 0; }
+
+.post { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px 22px 18px;
+  white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15.5px; line-height: 1.6; min-width: 0; }
+.post-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+button.copy { font: 600 14px var(--display); color: var(--on-accent); background: var(--accent); border: 0; border-radius: 8px;
+  padding: 9px 16px; cursor: pointer; }
+button.copy:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 2px; }
+button.copy[data-done] { background: var(--good); }
+
+figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.chart { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #0F1B2D; }
+.chart svg { display: block; width: 100%; height: auto; }
+figcaption { font-size: 14px; color: var(--muted); }
+code, .path { font-family: var(--mono); font-size: 13px; background: var(--accent-soft); color: var(--fg);
+  padding: 2px 6px; border-radius: 5px; overflow-wrap: anywhere; }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.fact b { display: block; font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.fact span { font-size: 13.5px; color: var(--muted); }
+
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td:first-child { font-weight: 600; white-space: nowrap; }
+
+ol.tips { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; }
+ol.tips li { padding-left: 4px; }
+.warn { color: var(--bad); font-weight: 600; }
+a { color: var(--accent); }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">LinkedIn post · ReviewLens</div>
+    <h1>ReviewLens LinkedIn Kit</h1>
+    <p class="lede">Ready-to-paste post with the 10 build highlights, the flowchart image to attach, and the facts behind every number.</p>
+  </header>
+
+  <section aria-labelledby="post-h">
+    <div class="sec-head">
+      <h2 id="post-h">1. The post</h2>
+      <button class="copy" id="copy-btn" type="button">Copy post</button>
+    </div>
+    <div class="post" id="post">A restaurant gets 200–500 reviews a week on Google, Zomato, Swiggy and Amazon, in English, Tamil and Tanglish. Someone reads them by hand, and the food-poisoning complaint sits unread for days.
+
+So I built ReviewLens: upload the week's CSV, and every review gets tagged, the urgent ones float to the top, and a weekly report lands in the owner's inbox every Monday at 9 AM.
+
+How I built it, in 10 points:
+
+1️⃣ Spec before code. I wrote the use-case brief, product definition, project rules and an implementation plan first (context engineering), then built it with Claude Code as my pair programmer.
+
+2️⃣ Structured output, not free text. A LangChain LCEL chain: prompt | gpt-5.4-mini.with_structured_output(Pydantic). Literal types force sentiment, category, urgency and language into allowed values.
+
+3️⃣ Batches that heal themselves. chain.batch() with max_concurrency=5; an invalid answer is retried twice, then flagged "needs review" instead of crashing the run. 905 reviews analysed, 0 failures.
+
+4️⃣ Built for Tamil and Tanglish. Summaries always come back in English; replies come back in the customer's own language with an English version for staff. One prompt-order change cut wrong-language Tanglish replies from 43% to 3%.
+
+5️⃣ Numbers come from pandas, never the LLM. The report chain returns the review IDs behind each theme; Python counts them and drops any ID the model invents.
+
+6️⃣ Map, then reduce. One chain per review, then a report chain that sees last week's numbers and writes top complaints, top praise and 3 action items.
+
+7️⃣ Week-over-week trends. Every week is stored in SQLite, so KPIs carry ▲▼ arrows and a heatmap shows which complaints are growing.
+
+8️⃣ Three role workspaces. Business Owner (report, trends, email schedule), Operations Manager (upload, correct tags, manage weeks), Customer Support (urgent queue, edit replies, mark handled), with PINs per role.
+
+9️⃣ The Monday email. A separate scheduler container sends an HTML report with trend arrows and the Excel-ready CSV, or a reminder if nobody uploaded the new week.
+
+🔟 Shipped and tested. Docker on a Hostinger VPS behind Traefik with automatic HTTPS, plus 43 automated tests (fake LLM, fake SMTP, a headless UI test per role) that run without an API key.
+
+On a synthetic demo week, the report caught exactly what a manager should see: late-delivery complaints ▼44 after an extra evening rider, but leaking containers ▲46, so the first action item was "replace the containers".
+
+Stack: Python · LangChain · OpenAI · Pydantic · pandas · Streamlit · SQLite · Docker · Traefik
+
+🔗 Live demo: https://reviewlens.prasanna.digital
+💻 Code: https://github.com/prasanna1280/ReviewLens_CustomerFeedbackAnalyzer
+
+#GenAI #LangChain #LLM #Python #Streamlit #OpenAI #CustomerExperience #BuildInPublic</div>
+    <div class="post-foot">
+      <span id="count">0 characters</span>
+      <span>LinkedIn limit: 3,000</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="chart-h">
+    <h2 id="chart-h">2. The flowchart to attach</h2>
+    <figure>
+      <div class="chart">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-label="ReviewLens pipeline flowchart">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B8DEF"/></marker>
+    <style>
+      .t{font-family:'Plus Jakarta Sans',system-ui,sans-serif;fill:#EAF0F8}
+      .h{font-weight:700;font-size:25px}
+      .s{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:16.5px;fill:#9FB0C8}
+      .n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;font-size:17px;fill:#0F1B2D}
+      .chip{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:14px;fill:#9CC3FF}
+      .box{fill:#15253C;stroke:#2B3F5E;stroke-width:1.5}
+      .core{fill:#17305A;stroke:#5B8DEF;stroke-width:2}
+      .out{fill:#15253C;stroke:#2B3F5E;stroke-width:1.5}
+      .ln{stroke:#5B8DEF;stroke-width:2.5;fill:none}
+    </style>
+  </defs>
+  <rect width="1080" height="1350" fill="#0F1B2D"/>
+  <rect x="0" y="0" width="1080" height="6" fill="#5B8DEF"/>
+  <text x="90" y="92" class="chip" style="font-size:15px;letter-spacing:2.5px">TRACK 1 · GEN AI · LANGCHAIN</text>
+  <text x="90" y="146" class="t" style="font-weight:800;font-size:50px">ReviewLens</text>
+  <text x="90" y="182" class="t" style="font-size:21px;fill:#9FB0C8">240 raw reviews in. A Monday-morning report out.</text>
+  <rect x="90" y="214" width="900" height="84" rx="12" class="box"/>
+  <circle cx="136" cy="256" r="18" fill="#5B8DEF"/><text x="136" y="262" text-anchor="middle" class="n">1</text>
+  <text x="172" y="250" class="t h">Upload the week's reviews</text>
+  <text x="172" y="279" class="s">CSV · Google, Zomato, Swiggy, Amazon · English / Tamil / Tanglish</text>
+  <rect x="868" y="238" width="98" height="30" rx="15" fill="#1D3456"/><text x="917" y="258" text-anchor="middle" class="chip">Manager</text>
+  <line x1="540" y1="298" x2="540" y2="320" class="ln" marker-end="url(#ah)"/>
+  <rect x="90" y="324" width="900" height="84" rx="12" class="box"/>
+  <circle cx="136" cy="366" r="18" fill="#5B8DEF"/><text x="136" y="372" text-anchor="middle" class="n">2</text>
+  <text x="172" y="360" class="t h">Validate</text>
+  <text x="172" y="389" class="s">required columns · drop empty rows · de-duplicate review IDs</text>
+  <rect x="878" y="348" width="88" height="30" rx="15" fill="#1D3456"/><text x="922" y="368" text-anchor="middle" class="chip">pandas</text>
+  <line x1="540" y1="408" x2="540" y2="430" class="ln" marker-end="url(#ah)"/>
+  <rect x="90" y="434" width="900" height="168" rx="12" class="core"/>
+  <circle cx="136" cy="476" r="18" fill="#9CC3FF"/><text x="136" y="482" text-anchor="middle" class="n">3</text>
+  <text x="172" y="470" class="t h">Classify every review</text>
+  <text x="172" y="499" class="s">prompt | gpt-5.4-mini.with_structured_output(Pydantic)</text>
+  <text x="172" y="524" class="s">batch(max_concurrency=5) · invalid value → retry ×2 → needs_review</text>
+  <rect x="172" y="542" width="118" height="36" rx="8" fill="#0F1B2D"/><text x="231" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">sentiment</text>
+  <rect x="298" y="542" width="104" height="36" rx="8" fill="#0F1B2D"/><text x="350" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">category</text>
+  <rect x="410" y="542" width="96" height="36" rx="8" fill="#0F1B2D"/><text x="458" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">urgency</text>
+  <rect x="514" y="542" width="196" height="36" rx="8" fill="#0F1B2D"/><text x="612" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">English summary</text>
+  <rect x="718" y="542" width="248" height="36" rx="8" fill="#0F1B2D"/><text x="842" y="565" text-anchor="middle" class="chip" style="fill:#EAF0F8">reply in their language</text>
+  <rect x="826" y="458" width="140" height="30" rx="15" fill="#22457A"/><text x="896" y="478" text-anchor="middle" class="chip">LangChain · map</text>
+  <line x1="540" y1="602" x2="540" y2="624" class="ln" marker-end="url(#ah)"/>
+  <rect x="90" y="628" width="900" height="84" rx="12" class="box"/>
+  <circle cx="136" cy="670" r="18" fill="#5B8DEF"/><text x="136" y="676" text-anchor="middle" class="n">4</text>
+  <text x="172" y="664" class="t h">Store the week, compare with last week</text>
+  <text x="172" y="693" class="s">counts and % in pandas, never the LLM · ▲ ▼ trend arrows</text>
+  <rect x="818" y="652" width="148" height="30" rx="15" fill="#1D3456"/><text x="892" y="672" text-anchor="middle" class="chip">SQLite · pandas</text>
+  <line x1="540" y1="712" x2="540" y2="734" class="ln" marker-end="url(#ah)"/>
+  <rect x="90" y="738" width="900" height="84" rx="12" class="box"/>
+  <circle cx="136" cy="780" r="18" fill="#5B8DEF"/><text x="136" y="786" text-anchor="middle" class="n">5</text>
+  <text x="172" y="774" class="t h">Write the weekly report</text>
+  <text x="172" y="803" class="s">top complaints + praise backed by review IDs · 3 action items</text>
+  <rect x="808" y="762" width="158" height="30" rx="15" fill="#22457A"/><text x="887" y="782" text-anchor="middle" class="chip">LangChain · reduce</text>
+  <path d="M540 822 V846 H235 V870" class="ln" marker-end="url(#ah)"/>
+  <path d="M540 846 V870" class="ln" marker-end="url(#ah)"/>
+  <path d="M540 846 H845 V870" class="ln" marker-end="url(#ah)"/>
+  <rect x="90" y="874" width="290" height="150" rx="12" class="out"/>
+  <text x="114" y="912" class="t" style="font-weight:700;font-size:21px">Role dashboards</text>
+  <text x="114" y="944" class="s" style="font-size:15px">Owner · trends &amp; report</text>
+  <text x="114" y="970" class="s" style="font-size:15px">Manager · upload &amp; tags</text>
+  <text x="114" y="996" class="s" style="font-size:15px">Support · urgent queue</text>
+  <rect x="395" y="874" width="290" height="150" rx="12" class="out"/>
+  <text x="419" y="912" class="t" style="font-weight:700;font-size:21px">Excel export</text>
+  <text x="419" y="944" class="s" style="font-size:15px">enriched CSV, UTF-8 BOM</text>
+  <text x="419" y="970" class="s" style="font-size:15px">Tamil script intact</text>
+  <text x="419" y="996" class="s" style="font-size:15px">urgent queue CSV</text>
+  <rect x="700" y="874" width="290" height="150" rx="12" class="out"/>
+  <text x="724" y="912" class="t" style="font-weight:700;font-size:21px">Monday email</text>
+  <text x="724" y="944" class="s" style="font-size:15px">scheduler container</text>
+  <text x="724" y="970" class="s" style="font-size:15px">09:00 IST · HTML + CSV</text>
+  <text x="724" y="996" class="s" style="font-size:15px">reminder if no new week</text>
+  <text x="90" y="1084" class="chip" style="font-size:14px;letter-spacing:2px">WEEK 41 VS WEEK 40 · LIVE RUN</text>
+  <text x="90" y="1126" class="t" style="font-size:24px;font-weight:700">Delivery complaints <tspan fill="#4ADE80">▼ 44</tspan><tspan fill="#5B6B85"> · </tspan>Packaging <tspan fill="#F87171">▲ 46</tspan><tspan fill="#5B6B85"> · </tspan>Urgent <tspan fill="#4ADE80">▼ 22</tspan></text>
+  <text x="90" y="1160" class="s">240 reviews tagged in 108 s · 0 failures · Tamil &amp; Tanglish summaries in English</text>
+  <rect x="0" y="1206" width="1080" height="144" fill="#0B1424"/>
+  <text x="90" y="1250" class="chip" style="font-size:14px;letter-spacing:2px">SHIPPED</text>
+  <g class="chip" style="font-size:15px">
+    <rect x="90" y="1270" width="150" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="165" y="1296" text-anchor="middle">Streamlit UI</text>
+    <rect x="252" y="1270" width="100" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="302" y="1296" text-anchor="middle">Docker</text>
+    <rect x="364" y="1270" width="184" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="456" y="1296" text-anchor="middle">Traefik + HTTPS</text>
+    <rect x="560" y="1270" width="172" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="646" y="1296" text-anchor="middle">Hostinger VPS</text>
+    <rect x="744" y="1270" width="246" height="40" rx="20" fill="#15253C" stroke="#2B3F5E"/><text x="867" y="1296" text-anchor="middle">43 automated tests</text>
+  </g>
+</svg>
+      </div>
+      <figcaption>Portrait 1080 × 1350, the size LinkedIn shows best in the feed. Upload the PNG from <span class="path">docs\linkedin\reviewlens-flowchart.png</span> in your project folder (2160 × 2700, sharp on retina screens).</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="facts-h">
+    <h2 id="facts-h">3. The numbers behind the post</h2>
+    <p class="sub">Every figure in the post comes from a real run or the repository, so you can answer questions in the comments.</p>
+    <div class="facts">
+      <div class="fact"><b>905</b><span>reviews analysed by OpenAI (W38–W41), 0 left as "needs review"</span></div>
+      <div class="fact"><b>108 s</b><span>to tag 240 reviews on the live server (Week 41)</span></div>
+      <div class="fact"><b>43% → 3%</b><span>Tanglish replies in the wrong language, before vs after the fix</span></div>
+      <div class="fact"><b>43</b><span>automated tests, offline (fake LLM, fake SMTP, headless UI per role)</span></div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Part</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>LangChain LCEL</td><td><code>ChatPromptTemplate | llm.with_structured_output(ReviewAnalysis)</code>, batched with <code>max_concurrency=5</code></td></tr>
+          <tr><td>Pydantic</td><td>Literal enums for sentiment, category (6), urgency, language; the single source of allowed values</td></tr>
+          <tr><td>OpenAI</td><td><code>gpt-5.4-mini</code> via <code>init_chat_model</code>, swappable through one environment variable</td></tr>
+          <tr><td>pandas</td><td>Validation, counts, percentages, week-over-week deltas, Excel-safe CSV (UTF-8 BOM)</td></tr>
+          <tr><td>SQLite</td><td>Weeks, reviews, edits, "handled" marks, settings and email log, on a Docker volume</td></tr>
+          <tr><td>Streamlit</td><td>Role picker, KPI cards with arrows, trends heatmap, urgent queue, editable tables</td></tr>
+          <tr><td>Scheduler</td><td>Own container; Monday 09:00 Asia/Kolkata; HTML email + CSV via Gmail SMTP</td></tr>
+          <tr><td>Deployment</td><td>Docker Compose on a Hostinger VPS, Traefik routing, Let's Encrypt HTTPS</td></tr>
+          <tr><td>Workflow</td><td>Use-case brief → <code>INITIAL.md</code> → <code>CLAUDE.md</code> → PRP, built with Claude Code</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="tips-h">
+    <h2 id="tips-h">4. Before you post</h2>
+    <ol class="tips">
+      <li>Attach the flowchart PNG as the post image. A single image post gets more reach than a link preview.</li>
+      <li>LinkedIn tends to show posts with outside links to fewer people. If you prefer, delete the two 🔗/💻 lines and put both links in the first comment instead.</li>
+      <li><span class="warn">The demo is open to anyone in the Support workspace.</span> Visitors from LinkedIn can tick "Handled" and edit replies on the demo weeks. Owner and Manager stay behind PINs. If you would rather keep the demo read-only, ask me to add a Support PIN or a read-only "Guest" view before posting.</li>
+      <li>The Week 41 story (delivery ▼44, packaging ▲46) comes from synthetic demo data; the post already says so. Keep that wording if you edit it.</li>
+      <li>Tag the people or program behind the use-case brief if this was part of a course or cohort.</li>
+    </ol>
+  </section>
+</div>
+
+<script>
+(() => {
+  const post = document.getElementById('post');
+  const btn = document.getElementById('copy-btn');
+  const count = document.getElementById('count');
+  const text = () => post.innerText.trim();
+  count.textContent = text().length.toLocaleString() + ' characters';
+  btn.addEventListener('click', () => {
+    const done = () => { btn.textContent = 'Copied'; btn.dataset.done = '1';
+      setTimeout(() => { btn.textContent = 'Copy post'; delete btn.dataset.done; }, 2000); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(post);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Press Ctrl+C'; };
+    try { navigator.clipboard.writeText(text()).then(done, fallback); } catch (e) { fallback(); }
+  });
+})();
+</script>
