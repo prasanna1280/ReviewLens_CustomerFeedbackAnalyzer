@@ -152,21 +152,24 @@ def urgent_card(
     """One urgent review: original text, English summary, copyable reply, handled + edit controls."""
     rid = str(row["review_id"])
     with st.container(border=True):
-        head, action = st.columns([5, 1.4], vertical_alignment="center")
         rating = "" if pd.isna(row["rating"]) else "★" * int(row["rating"]) + "☆" * (5 - int(row["rating"]))
-        head.markdown(
-            f"**{html.escape(rid)}** &nbsp;·&nbsp; {html.escape(str(row['platform']))} "
-            f"&nbsp;·&nbsp; {row['date']} &nbsp;·&nbsp; <span style='color:#D97706'>{rating}</span>",
-            unsafe_allow_html=True,
-        )
         key = f"handled_{rid}"
-        action.checkbox(
-            "Handled",
-            value=bool(row.get("handled")),
-            key=key,
-            disabled=not can_handle,
-            on_change=lambda: on_handled(rid, bool(st.session_state[key])),
-        )
+        # one row: details take the free space, the checkbox keeps its natural width (label never truncates)
+        with st.container(horizontal=True, vertical_alignment="center", gap="small", wrap=False):
+            st.markdown(
+                f"**{html.escape(rid)}** &nbsp;·&nbsp; {html.escape(str(row['platform']))} "
+                f"&nbsp;·&nbsp; {row['date']} &nbsp;·&nbsp; <span style='color:#D97706'>{rating}</span>",
+                unsafe_allow_html=True,
+                width="stretch",
+            )
+            st.checkbox(
+                "Handled",
+                value=bool(row.get("handled")),
+                key=key,
+                disabled=not can_handle,
+                on_change=lambda: on_handled(rid, bool(st.session_state[key])),
+                width="content",
+            )
         with st.container(horizontal=True, gap="small"):
             st.badge(CATEGORY_LABELS.get(row["category"], row["category"]), color="blue")
             st.badge(row["language"], color="violet")
