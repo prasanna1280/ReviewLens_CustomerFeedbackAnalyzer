@@ -8,3 +8,30 @@ gatherUsageStats = false
 
 [client]
 toolbarMode = "minimal"
+
+[theme]
+base = "light"
+primaryColor = "#1D4ED8"
+backgroundColor = "#F5F7FA"
+secondaryBackgroundColor = "#EEF2F7"
+textColor = "#0F172A"
+linkColor = "#1D4ED8"
+borderColor = "#E2E8F0"
+showWidgetBorder = true
+baseRadius = "8px"
+buttonRadius = "6px"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFontWeights = [700, 600, 600, 600, 600, 600]
+metricValueFontSize = "1.75rem"
+metricValueFontWeight = 600
+dataframeHeaderBackgroundColor = "#F1F5F9"
+greenColor = "#15803D"
+redColor = "#B91C1C"
+orangeColor = "#C2410C"
+
+[theme.sidebar]
+backgroundColor = "#0F1B2D"
+secondaryBackgroundColor = "#1A2A42"
+textColor = "#E2E8F0"
+borderColor = "#24354F"
+primaryColor = "#3B82F6"

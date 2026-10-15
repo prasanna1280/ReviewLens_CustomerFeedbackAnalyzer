@@ -1,0 +1,244 @@
+review_id,date,platform,rating,review_text
+R-1512,2026-10-05,Amazon,5,"பிரியாணி மிகவும் சுவையாக இருந்தது, மீண்டும் ஆர்டர் செய்வேன்!"
+R-1527,2026-10-05,Zomato,1,"Container lid was broken, sambar leaked everywhere."
+R-1541,2026-10-05,Swiggy,2,"அளவு மிகவும் குறைவாக இருந்தது, விலைக்கு ஏற்றதாக இல்லை."
+R-1544,2026-10-05,Swiggy,2,Portion size was very small for 250 rupees.
+R-1548,2026-10-05,Swiggy,5,"Indha area la best biryani idhu dhaan, kandippa marupadiyum order pannuven"
+R-1549,2026-10-05,Zomato,4,"Delivery fast ah vandhuchu, saapadu hot ah irundhuchu. Super!"
+R-1554,2026-10-05,Swiggy,1,"Container lid was broken, sambar leaked everywhere."
+R-1560,2026-10-05,Zomato,2,Saapadu nalla irundhuchu but bill la extra charge pottanga
+R-1561,2026-10-05,Zomato,1,"தவறான ஆர்டர் வந்தது, பணத்தை திருப்பித் தாருங்கள்."
+R-1565,2026-10-05,Zomato,4,பேக்கிங் மிகவும் நேர்த்தியாக இருந்தது.
+R-1569,2026-10-05,Zomato,3,"Taste average, quantity fine. Might try again."
+R-1574,2026-10-05,Swiggy,1,"Delivery took more than an hour, food was cold by the time it came."
+R-1581,2026-10-05,Amazon,1,"New containers are flimsy, curry leaked through the bag."
+R-1600,2026-10-05,Zomato,1,"Gravy spilled all over the bag, poor packaging."
+R-1607,2026-10-05,Swiggy,5,"Packaging was leak proof and very neat, loved it."
+R-1610,2026-10-05,Google,3,"Parotta ok, salna konjam better ah irundhirukalaam"
+R-1612,2026-10-05,Swiggy,4,ஊழியர்கள் மிகவும் அன்பாக நடந்துகொண்டார்கள்.
+R-1616,2026-10-05,Zomato,5,"Mutton biryani was soft and flavourful, totally worth it."
+R-1636,2026-10-05,Swiggy,1,"Late delivery again on a Friday night, 75 minutes wait."
+R-1640,2026-10-05,Amazon,2,"Biryani la uppu romba jaasthi, saapida mudiyala"
+R-1646,2026-10-05,Zomato,4,"Delivery fast ah vandhuchu, saapadu hot ah irundhuchu. Super!"
+R-1669,2026-10-05,Amazon,5,"Chicken biryani vera level, masala correct ah irundhuchu"
+R-1670,2026-10-05,Zomato,4,"Biryani was amazing, packing also neat. Will order again!"
+R-1678,2026-10-05,Google,4,"Biryani semma taste, packing um super ah irundhuchu!"
+R-1679,2026-10-05,Zomato,4,"Chicken biryani vera level, masala correct ah irundhuchu"
+R-1681,2026-10-05,Google,4,"Great value combo meal, worth the price."
+R-1685,2026-10-05,Amazon,3,"Bill la GST thavira extra charges irukku, menu la podala"
+R-1686,2026-10-05,Swiggy,2,"New containers are flimsy, curry leaked through the bag."
+R-1688,2026-10-05,Amazon,5,"Biryani was amazing, packing also neat. Will order again!"
+R-1689,2026-10-05,Swiggy,1,"Gravy spilled all over the bag, poor packaging."
+R-1692,2026-10-05,Swiggy,4,"Indha area la best biryani idhu dhaan, kandippa marupadiyum order pannuven"
+R-1695,2026-10-05,Zomato,3,"உணவு சராசரியாக இருந்தது, பரவாயில்லை."
+R-1706,2026-10-05,Swiggy,3,"Taste average, quantity fine. Might try again."
+R-1712,2026-10-05,Amazon,4,Staff at the outlet were very friendly and quick.
+R-1714,2026-10-05,Swiggy,2,"Container lid was broken, sambar leaked everywhere."
+R-1723,2026-10-05,Swiggy,2,"பில்லில் கூடுதல் கட்டணம் சேர்த்திருந்தார்கள், மெனுவில் இல்லை."
+R-1731,2026-10-05,Amazon,5,"Packing neat ah irundhuchu, onnum spill aagala"
+R-1735,2026-10-05,Swiggy,2,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1500,2026-10-06,Zomato,5,"Staff romba friendly, quick ah serve panninanga"
+R-1502,2026-10-06,Google,5,"Mutton biryani was soft and flavourful, totally worth it."
+R-1507,2026-10-06,Zomato,4,"Chicken biryani vera level, masala correct ah irundhuchu"
+R-1514,2026-10-06,Google,4,உணவு சூடாகவும் சுவையாகவும் இருந்தது. பேக்கிங் அருமை.
+R-1517,2026-10-06,Zomato,2,"New containers are flimsy, curry leaked through the bag."
+R-1522,2026-10-06,Swiggy,1,"Late delivery again on a Friday night, 75 minutes wait."
+R-1523,2026-10-06,Google,3,"உணவு சராசரியாக இருந்தது, பரவாயில்லை."
+R-1524,2026-10-06,Amazon,2,"Delivery took more than an hour, food was cold by the time it came."
+R-1533,2026-10-06,Google,2,"அளவு மிகவும் குறைவாக இருந்தது, விலைக்கு ஏற்றதாக இல்லை."
+R-1534,2026-10-06,Amazon,5,Staff at the outlet were very friendly and quick.
+R-1538,2026-10-06,Zomato,2,"Container lid was broken, sambar leaked everywhere."
+R-1547,2026-10-06,Swiggy,1,"Gravy spilled all over the bag, poor packaging."
+R-1572,2026-10-06,Zomato,2,App la payment fail aachu but amount cut aagiduchu
+R-1587,2026-10-06,Amazon,1,Wrong order delivered! I ordered veg biryani and got chicken. I am vegetarian.
+R-1596,2026-10-06,Amazon,2,Biryani was too oily and salty today.
+R-1604,2026-10-06,Zomato,3,"Food was okay, nothing special. Delivery on time."
+R-1606,2026-10-06,Google,2,Biryani was too oily and salty today.
+R-1614,2026-10-06,Zomato,2,"Biryani la uppu romba jaasthi, saapida mudiyala"
+R-1615,2026-10-06,Zomato,3,Bill had hidden charges that were not on the menu.
+R-1617,2026-10-06,Amazon,2,"Chicken konjam kammi ah irundhuchu, quantity romba kammi"
+R-1621,2026-10-06,Swiggy,3,"உணவு சராசரியாக இருந்தது, பரவாயில்லை."
+R-1624,2026-10-06,Swiggy,1,Counter staff romba rude ah pesinanga
+R-1625,2026-10-06,Zomato,2,Too expensive for the quantity given.
+R-1627,2026-10-06,Swiggy,1,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1633,2026-10-06,Google,5,"Biryani semma taste, packing um super ah irundhuchu!"
+R-1638,2026-10-06,Zomato,1,"Order placed at 8:30, reached after 10pm. Unacceptable."
+R-1644,2026-10-06,Amazon,2,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1648,2026-10-06,Google,3,"Parotta ok, salna konjam better ah irundhirukalaam"
+R-1651,2026-10-06,Swiggy,2,"அளவு மிகவும் குறைவாக இருந்தது, விலைக்கு ஏற்றதாக இல்லை."
+R-1657,2026-10-06,Zomato,4,"பிரியாணி மிகவும் சுவையாக இருந்தது, மீண்டும் ஆர்டர் செய்வேன்!"
+R-1659,2026-10-06,Swiggy,1,"Gravy spilled all over the bag, poor packaging."
+R-1661,2026-10-06,Swiggy,1,Wrong order delivered! I ordered veg biryani and got chicken. I am vegetarian.
+R-1666,2026-10-06,Amazon,5,"Best chicken biryani in the area, perfectly spiced."
+R-1707,2026-10-06,Swiggy,1,"Veg order kuduthen, non-veg vandhuchu. Refund venum"
+R-1708,2026-10-06,Swiggy,4,உணவு சூடாகவும் சுவையாகவும் இருந்தது. பேக்கிங் அருமை.
+R-1710,2026-10-06,Amazon,4,"Packaging was leak proof and very neat, loved it."
+R-1722,2026-10-06,Google,3,"Taste average, quantity fine. Might try again."
+R-1729,2026-10-06,Swiggy,5,"Staff romba friendly, quick ah serve panninanga"
+R-1741,2026-10-06,Google,5,  
+R-1500,2026-10-06,Zomato,5,Duplicate id row - should be dropped
+R-1501,2026-10-07,Swiggy,2,குழம்பு கசிந்து பை முழுவதும் கொட்டியிருந்தது.
+R-1513,2026-10-07,Swiggy,1,"ஒரு மணி நேரம் காத்திருந்தேன், உணவு ஆறிப்போய் வந்தது."
+R-1519,2026-10-07,Zomato,1,"New containers are flimsy, curry leaked through the bag."
+R-1530,2026-10-07,Swiggy,1,"New containers are flimsy, curry leaked through the bag."
+R-1537,2026-10-07,Swiggy,1,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1540,2026-10-07,Swiggy,1,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1545,2026-10-07,Amazon,2,"Late delivery again on a Friday night, 75 minutes wait."
+R-1546,2026-10-07,Amazon,5,"Mutton biryani was soft and flavourful, totally worth it."
+R-1551,2026-10-07,Swiggy,2,"Container lid was broken, sambar leaked everywhere."
+R-1555,2026-10-07,Swiggy,2,"New containers are flimsy, curry leaked through the bag."
+R-1556,2026-10-07,Swiggy,2,"Gravy spilled all over the bag, poor packaging."
+R-1557,2026-10-07,Swiggy,4,"பிரியாணி மிகவும் சுவையாக இருந்தது, மீண்டும் ஆர்டர் செய்வேன்!"
+R-1566,2026-10-07,Amazon,4,"Packing neat ah irundhuchu, onnum spill aagala"
+R-1571,2026-10-07,Zomato,1,"Container lid was broken, sambar leaked everywhere."
+R-1575,2026-10-07,Swiggy,4,"Best chicken biryani in the area, perfectly spiced."
+R-1576,2026-10-07,Google,4,"Best chicken biryani in the area, perfectly spiced."
+R-1578,2026-10-07,Google,3,"உணவு சராசரியாக இருந்தது, பரவாயில்லை."
+R-1583,2026-10-07,Google,4,"Staff romba friendly, quick ah serve panninanga"
+R-1584,2026-10-07,Zomato,5,"Food came hot and fresh, delivery boy was polite."
+R-1589,2026-10-07,Amazon,1,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1590,2026-10-07,Swiggy,2,"Gravy spilled all over the bag, poor packaging."
+R-1597,2026-10-07,Google,4,"Indha area la best biryani idhu dhaan, kandippa marupadiyum order pannuven"
+R-1608,2026-10-07,Swiggy,2,"Gravy spilled all over the bag, poor packaging."
+R-1623,2026-10-07,Swiggy,3,"உணவு சராசரியாக இருந்தது, பரவாயில்லை."
+R-1639,2026-10-07,Swiggy,2,"8 mani ku order panninen, 9:30 ku dhaan vandhuchu. Romba mosam"
+R-1641,2026-10-07,Swiggy,1,"Gravy spilled all over the bag, poor packaging."
+R-1671,2026-10-07,Swiggy,1,"Late delivery again on a Friday night, 75 minutes wait."
+R-1672,2026-10-07,Zomato,5,"Food came hot and fresh, delivery boy was polite."
+R-1676,2026-10-07,Swiggy,2,"Ordered at 8pm, came at 9:10. Food fully cold. Very bad."
+R-1682,2026-10-07,Amazon,2,"Ordered at 8pm, came at 9:10. Food fully cold. Very bad."
+R-1683,2026-10-07,Amazon,2,"Biryani la uppu romba jaasthi, saapida mudiyala"
+R-1690,2026-10-07,Swiggy,4,"Biryani was amazing, packing also neat. Will order again!"
+R-1716,2026-10-07,Swiggy,1,Two items missing from my order and no response from support.
+R-1725,2026-10-07,Google,2,Extra packing charge and service charge added without telling. Not fair.
+R-1732,2026-10-07,Zomato,2,Bill had hidden charges that were not on the menu.
+R-1734,2026-10-07,Amazon,5,"Mutton biryani was soft and flavourful, totally worth it."
+R-1736,2026-10-07,Google,3,"Saapadu ok dhaan, periya special onnum illa"
+R-1739,2026-10-07,Swiggy,2,"Gravy spilled all over the bag, poor packaging."
+R-1740,2026-10-07,Swiggy,2,
+R-1511,2026-10-08,Amazon,2,Extra packing charge and service charge added without telling. Not fair.
+R-1526,2026-10-08,Amazon,2,"Order romba late ah vandhuchu, saapadu ellam aaridichu"
+R-1532,2026-10-08,Swiggy,3,"Bill la GST thavira extra charges irukku, menu la podala"
+R-1535,2026-10-08,Amazon,4,"Staff romba friendly, quick ah serve panninanga"
+R-1543,2026-10-08,Google,5,"Biryani was amazing, packing also neat. Will order again!"
+R-1563,2026-10-08,Google,2,Extra packing charge and service charge added without telling. Not fair.
+R-1573,2026-10-08,Google,4,"Best chicken biryani in the area, perfectly spiced."
+R-1577,2026-10-08,Zomato,4,"Chicken biryani vera level, masala correct ah irundhuchu"
+R-1579,2026-10-08,Swiggy,2,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1582,2026-10-08,Zomato,3,"Saapadu ok dhaan, periya special onnum illa"
+R-1588,2026-10-08,Zomato,4,"பிரியாணி மிகவும் சுவையாக இருந்தது, மீண்டும் ஆர்டர் செய்வேன்!"
+R-1593,2026-10-08,Swiggy,2,"Ordered at 8pm, came at 9:10. Food fully cold. Very bad."
+R-1594,2026-10-08,Amazon,2,"Late delivery again on a Friday night, 75 minutes wait."
+R-1595,2026-10-08,Zomato,2,"அளவு மிகவும் குறைவாக இருந்தது, விலைக்கு ஏற்றதாக இல்லை."
+R-1601,2026-10-08,Google,3,"Parotta ok, salna konjam better ah irundhirukalaam"
+R-1605,2026-10-08,Zomato,2,Portion size was very small for 250 rupees.
+R-1609,2026-10-08,Swiggy,3,"Saapadu ok dhaan, periya special onnum illa"
+R-1631,2026-10-08,Google,2,"பில்லில் கூடுதல் கட்டணம் சேர்த்திருந்தார்கள், மெனுவில் இல்லை."
+R-1635,2026-10-08,Amazon,2,Saapadu nalla irundhuchu but bill la extra charge pottanga
+R-1637,2026-10-08,Swiggy,2,"Container lid was broken, sambar leaked everywhere."
+R-1645,2026-10-08,Google,2,"அளவு மிகவும் குறைவாக இருந்தது, விலைக்கு ஏற்றதாக இல்லை."
+R-1652,2026-10-08,Zomato,2,"Late delivery again on a Friday night, 75 minutes wait."
+R-1656,2026-10-08,Swiggy,3,"Taste average, quantity fine. Might try again."
+R-1663,2026-10-08,Google,2,"Bill la GST thavira extra charges irukku, menu la podala"
+R-1664,2026-10-08,Amazon,1,"Order romba late ah vandhuchu, saapadu ellam aaridichu"
+R-1667,2026-10-08,Amazon,4,"Biryani semma taste, packing um super ah irundhuchu!"
+R-1673,2026-10-08,Amazon,1,"உணவில் முடி இருந்தது, மிகவும் அருவருப்பாக இருந்தது."
+R-1684,2026-10-08,Swiggy,1,"Saapitta apram vomiting aachu, food fresh ah illa"
+R-1697,2026-10-08,Amazon,5,"பிரியாணி மிகவும் சுவையாக இருந்தது, மீண்டும் ஆர்டர் செய்வேன்!"
+R-1699,2026-10-08,Amazon,3,"Saapadu ok dhaan, periya special onnum illa"
+R-1703,2026-10-08,Google,2,"Biryani la uppu romba jaasthi, saapida mudiyala"
+R-1705,2026-10-08,Swiggy,1,"Ordered at 8pm, came at 9:10. Food fully cold. Very bad."
+R-1709,2026-10-08,Swiggy,2,"New containers are flimsy, curry leaked through the bag."
+R-1711,2026-10-08,Amazon,2,Bill had hidden charges that were not on the menu.
+R-1715,2026-10-08,Zomato,3,"Taste average, quantity fine. Might try again."
+R-1718,2026-10-08,Swiggy,5,உணவு சூடாகவும் சுவையாகவும் இருந்தது. பேக்கிங் அருமை.
+R-1721,2026-10-08,Swiggy,1,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1727,2026-10-08,Zomato,3,Saapadu nalla irundhuchu but bill la extra charge pottanga
+R-1733,2026-10-08,Google,2,Portion size was very small for 250 rupees.
+R-1504,2026-10-09,Google,2,"பில்லில் கூடுதல் கட்டணம் சேர்த்திருந்தார்கள், மெனுவில் இல்லை."
+R-1508,2026-10-09,Google,4,"Delivery fast ah vandhuchu, saapadu hot ah irundhuchu. Super!"
+R-1531,2026-10-09,Zomato,1,"New containers are flimsy, curry leaked through the bag."
+R-1539,2026-10-09,Amazon,4,"Biryani semma taste, packing um super ah irundhuchu!"
+R-1542,2026-10-09,Google,4,"Indha area la best biryani idhu dhaan, kandippa marupadiyum order pannuven"
+R-1558,2026-10-09,Swiggy,2,"Container lid was broken, sambar leaked everywhere."
+R-1562,2026-10-09,Amazon,2,Portion size was very small for 250 rupees.
+R-1567,2026-10-09,Google,2,"Chicken konjam kammi ah irundhuchu, quantity romba kammi"
+R-1585,2026-10-09,Amazon,2,"Gravy spilled all over the bag, poor packaging."
+R-1586,2026-10-09,Amazon,1,Wrong order delivered! I ordered veg biryani and got chicken. I am vegetarian.
+R-1602,2026-10-09,Zomato,5,"பிரியாணி மிகவும் சுவையாக இருந்தது, மீண்டும் ஆர்டர் செய்வேன்!"
+R-1611,2026-10-09,Amazon,3,"Taste average, quantity fine. Might try again."
+R-1613,2026-10-09,Amazon,2,"Chicken konjam kammi ah irundhuchu, quantity romba kammi"
+R-1618,2026-10-09,Zomato,4,"Delivery fast ah vandhuchu, saapadu hot ah irundhuchu. Super!"
+R-1622,2026-10-09,Swiggy,1,"Order romba late ah vandhuchu, saapadu ellam aaridichu"
+R-1632,2026-10-09,Swiggy,1,"New containers are flimsy, curry leaked through the bag."
+R-1642,2026-10-09,Amazon,2,"Bill la GST thavira extra charges irukku, menu la podala"
+R-1649,2026-10-09,Swiggy,1,"Container lid was broken, sambar leaked everywhere."
+R-1653,2026-10-09,Zomato,2,"Gravy spilled all over the bag, poor packaging."
+R-1654,2026-10-09,Swiggy,3,"Saapadu ok dhaan, periya special onnum illa"
+R-1660,2026-10-09,Zomato,5,"Delivery fast ah vandhuchu, saapadu hot ah irundhuchu. Super!"
+R-1665,2026-10-09,Amazon,3,"பில்லில் கூடுதல் கட்டணம் சேர்த்திருந்தார்கள், மெனுவில் இல்லை."
+R-1687,2026-10-09,Zomato,5,"Chicken biryani vera level, masala correct ah irundhuchu"
+R-1691,2026-10-09,Zomato,1,குழம்பு கசிந்து பை முழுவதும் கொட்டியிருந்தது.
+R-1693,2026-10-09,Google,5,"Food came hot and fresh, delivery boy was polite."
+R-1694,2026-10-09,Swiggy,1,"Order placed at 8:30, reached after 10pm. Unacceptable."
+R-1696,2026-10-09,Amazon,2,"டெலிவரி மிகவும் தாமதமாக வந்தது, உணவு குளிர்ந்துவிட்டது."
+R-1738,2026-10-09,Zomato,5,"மட்டன் பிரியாணி அருமை, காரம் சரியாக இருந்தது."
+R-1503,2026-10-10,Swiggy,1,Order tracking in the app never updates.
+R-1506,2026-10-10,Amazon,2,Portion size was very small for 250 rupees.
+R-1510,2026-10-10,Google,5,"Biryani was amazing, packing also neat. Will order again!"
+R-1516,2026-10-10,Google,3,"பில்லில் கூடுதல் கட்டணம் சேர்த்திருந்தார்கள், மெனுவில் இல்லை."
+R-1518,2026-10-10,Amazon,2,Portion size was very small for 250 rupees.
+R-1520,2026-10-10,Swiggy,5,ஊழியர்கள் மிகவும் அன்பாக நடந்துகொண்டார்கள்.
+R-1525,2026-10-10,Google,5,"Biryani semma taste, packing um super ah irundhuchu!"
+R-1528,2026-10-10,Zomato,3,"Food was okay, nothing special. Delivery on time."
+R-1529,2026-10-10,Swiggy,4,"பிரியாணி மிகவும் சுவையாக இருந்தது, மீண்டும் ஆர்டர் செய்வேன்!"
+R-1536,2026-10-10,Swiggy,1,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1553,2026-10-10,Swiggy,2,Bill had hidden charges that were not on the menu.
+R-1564,2026-10-10,Swiggy,5,"பிரியாணி மிகவும் சுவையாக இருந்தது, மீண்டும் ஆர்டர் செய்வேன்!"
+R-1568,2026-10-10,Swiggy,5,"மட்டன் பிரியாணி அருமை, காரம் சரியாக இருந்தது."
+R-1570,2026-10-10,Google,4,"Chicken biryani vera level, masala correct ah irundhuchu"
+R-1592,2026-10-10,Zomato,4,"Indha area la best biryani idhu dhaan, kandippa marupadiyum order pannuven"
+R-1598,2026-10-10,Google,2,கடை ஊழியர் மரியாதை இல்லாமல் பேசினார்.
+R-1603,2026-10-10,Google,4,"Mutton biryani was soft and flavourful, totally worth it."
+R-1634,2026-10-10,Zomato,1,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1643,2026-10-10,Zomato,5,"Staff romba friendly, quick ah serve panninanga"
+R-1647,2026-10-10,Google,5,"Food came hot and fresh, delivery boy was polite."
+R-1655,2026-10-10,Swiggy,5,"Food came hot and fresh, delivery boy was polite."
+R-1662,2026-10-10,Swiggy,4,"Food came hot and fresh, delivery boy was polite."
+R-1674,2026-10-10,Swiggy,4,உணவு சூடாகவும் சுவையாகவும் இருந்தது. பேக்கிங் அருமை.
+R-1675,2026-10-10,Swiggy,5,"Delivery fast ah vandhuchu, saapadu hot ah irundhuchu. Super!"
+R-1677,2026-10-10,Google,2,Portion size was very small for 250 rupees.
+R-1680,2026-10-10,Google,3,"Parotta ok, salna konjam better ah irundhirukalaam"
+R-1702,2026-10-10,Amazon,2,Portion size was very small for 250 rupees.
+R-1717,2026-10-10,Swiggy,2,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1505,2026-10-11,Swiggy,4,"Best chicken biryani in the area, perfectly spiced."
+R-1509,2026-10-11,Swiggy,2,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1515,2026-10-11,Swiggy,1,"Packing sariyilla, gravy ellam bag la kotti irundhuchu"
+R-1521,2026-10-11,Amazon,1,"Container lid was broken, sambar leaked everywhere."
+R-1550,2026-10-11,Swiggy,1,Payment deducted twice in the app but order shows failed. Need refund.
+R-1552,2026-10-11,Amazon,2,Rice was undercooked and the gravy was bland.
+R-1559,2026-10-11,Amazon,5,"Delivery fast ah vandhuchu, saapadu hot ah irundhuchu. Super!"
+R-1580,2026-10-11,Amazon,2,"Container lid was broken, sambar leaked everywhere."
+R-1591,2026-10-11,Swiggy,3,"Saapadu ok dhaan, periya special onnum illa"
+R-1599,2026-10-11,Swiggy,2,"New containers are flimsy, curry leaked through the bag."
+R-1619,2026-10-11,Swiggy,3,Saapadu nalla irundhuchu but bill la extra charge pottanga
+R-1620,2026-10-11,Amazon,1,"Gravy spilled all over the bag, poor packaging."
+R-1626,2026-10-11,Zomato,2,"New containers are flimsy, curry leaked through the bag."
+R-1628,2026-10-11,Google,3,"Parotta ok, salna konjam better ah irundhirukalaam"
+R-1629,2026-10-11,Swiggy,3,"Parotta ok, salna konjam better ah irundhirukalaam"
+R-1630,2026-10-11,Swiggy,2,"அளவு மிகவும் குறைவாக இருந்தது, விலைக்கு ஏற்றதாக இல்லை."
+R-1650,2026-10-11,Zomato,1,"Gravy spilled all over the bag, poor packaging."
+R-1658,2026-10-11,Amazon,1,App la payment fail aachu but amount cut aagiduchu
+R-1668,2026-10-11,Amazon,1,Wrong order delivered! I ordered veg biryani and got chicken. I am vegetarian.
+R-1698,2026-10-11,Zomato,4,"Biryani semma taste, packing um super ah irundhuchu!"
+R-1700,2026-10-11,Swiggy,2,Too expensive for the quantity given.
+R-1701,2026-10-11,Amazon,5,"மட்டன் பிரியாணி அருமை, காரம் சரியாக இருந்தது."
+R-1704,2026-10-11,Swiggy,2,"Order placed at 8:30, reached after 10pm. Unacceptable."
+R-1713,2026-10-11,Amazon,4,"Best chicken biryani in the area, perfectly spiced."
+R-1719,2026-10-11,Swiggy,1,"Delivery took more than an hour, food was cold by the time it came."
+R-1720,2026-10-11,Zomato,4,"Biryani was amazing, packing also neat. Will order again!"
+R-1724,2026-10-11,Zomato,2,Rice was undercooked and the gravy was bland.
+R-1726,2026-10-11,Google,4,"Best chicken biryani in the area, perfectly spiced."
+R-1728,2026-10-11,Amazon,5,"Biryani was amazing, packing also neat. Will order again!"
+R-1730,2026-10-11,Swiggy,1,"தவறான ஆர்டர் வந்தது, பணத்தை திருப்பித் தாருங்கள்."
+R-1737,2026-10-11,Amazon,2,"Order romba late ah vandhuchu, saapadu ellam aaridichu"

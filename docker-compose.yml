@@ -7,6 +7,27 @@ services:
     env_file:
       - path: .env
         required: false
+    volumes:
+      - reviewlens-data:/app/storage
     restart: unless-stopped
     ports:
       - "127.0.0.1:8501:8501"
+
+  # Sends the weekly report email on the configured day/time (default Monday 09:00 IST)
+  scheduler:
+    build: .
+    image: reviewlens:latest
+    depends_on:
+      - reviewlens
+    command: ["python", "-m", "reviewlens.scheduler"]
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - reviewlens-data:/app/storage
+    restart: unless-stopped
+    healthcheck:
+      disable: true
+
+volumes:
+  reviewlens-data:

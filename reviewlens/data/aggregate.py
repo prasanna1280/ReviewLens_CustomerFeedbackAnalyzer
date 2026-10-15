@@ -23,6 +23,7 @@ def compute_stats(df: pd.DataFrame) -> dict:
     analysed = len(ok)
     sentiment_counts = counts(ok["sentiment"], SENTIMENTS)
     dates = pd.to_datetime(df["date"], errors="coerce").dropna()
+    ratings = pd.to_numeric(df["rating"], errors="coerce").dropna()
     return {
         "total": len(df),
         "analysed": analysed,
@@ -36,4 +37,6 @@ def compute_stats(df: pd.DataFrame) -> dict:
         "language_counts": counts(ok["language"], LANGUAGES),
         "platform_counts": {str(k): int(v) for k, v in ok["platform"].value_counts().items()},
         "urgent": int((ok["urgency"] == "high").sum()),
+        "negative_by_category": counts(ok.loc[ok["sentiment"] == "negative", "category"], CATEGORIES),
+        "avg_rating": round(float(ratings.mean()), 2) if not ratings.empty else None,
     }

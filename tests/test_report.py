@@ -75,7 +75,7 @@ def test_report_numbers_come_from_stats():
     assert "7 reviews" in text  # R-FAKE dropped before counting
     assert "Biryani taste (5 mentions)" in text
     assert f"URGENT: {stats['urgent']} reviews" in text
-    assert "29 Sep to 5 Oct 2026" in text
+    assert "28 Sep to 4 Oct 2026" in text
     assert "need manual review" in text
     assert text.count("\n  ") >= 5
 

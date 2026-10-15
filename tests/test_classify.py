@@ -1,4 +1,5 @@
 import pytest
+from langchain_core.runnables import RunnableLambda
 from pydantic import ValidationError
 
 from reviewlens.chains.classify import classify_reviews
@@ -55,3 +56,23 @@ def test_full_sample_every_row_has_all_six_fields(fake_chain):
 def test_schema_rejects_values_outside_allowed_lists(field, value):
     with pytest.raises(ValidationError):
         make_analysis(**{field: value})
+
+
+def test_reply_in_wrong_language_is_retried_then_accepted():
+    calls = {"n": 0}
+
+    def run(row):
+        calls["n"] += 1
+        same = make_analysis(language="Tanglish", suggested_reply="Sorry.", reply_english="Sorry.")
+        if calls["n"] == 1:
+            return same  # soft failure -> retried
+        return make_analysis(language="Tanglish", suggested_reply="Romba sorry.", reply_english="Sorry.")
+
+    out = classify_reviews(RunnableLambda(run), rows(1), 1, 2)
+    assert calls["n"] == 2 and out[0].suggested_reply == "Romba sorry."
+
+    always_same = RunnableLambda(
+        lambda row: make_analysis(language="Tanglish", suggested_reply="Sorry.", reply_english="Sorry.")
+    )
+    out = classify_reviews(always_same, rows(1), 1, 2)
+    assert isinstance(out[0], ReviewAnalysis)  # accepted after retries, not needs_review

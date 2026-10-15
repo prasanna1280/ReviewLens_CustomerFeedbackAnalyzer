@@ -40,9 +40,17 @@ def sanitize_insights(insights: WeeklyInsights, known_ids: set[str]) -> WeeklyIn
     )
 
 
-def generate_insights(chain: Runnable, df_ok: pd.DataFrame, stats: dict) -> WeeklyInsights:
+def generate_insights(
+    chain: Runnable, df_ok: pd.DataFrame, stats: dict, trend_text: str = "No previous week available."
+) -> WeeklyInsights:
     """Run the report chain over analysed rows and return sanitized insights."""
     if df_ok.empty:
         return WeeklyInsights(top_complaints=[], top_praise=[], action_items=[])
-    raw = chain.invoke({"stats": json.dumps(stats, default=str, indent=1), "lines": _review_lines(df_ok)})
+    raw = chain.invoke(
+        {
+            "stats": json.dumps(stats, default=str, indent=1),
+            "trend": trend_text,
+            "lines": _review_lines(df_ok),
+        }
+    )
     return sanitize_insights(raw, set(df_ok["review_id"].astype(str)))

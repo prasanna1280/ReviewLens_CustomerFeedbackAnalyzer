@@ -32,7 +32,7 @@ Source brief: [`docs/USE_CASE.md`](docs/USE_CASE.md). If this file and the brief
 | Config | python-dotenv | API keys only in `.env` |
 | Quality | pytest, ruff | LLM is faked in unit tests; live tests are opt-in |
 
-**Not in scope:** database, auth, REST API, React, Docker, payments. The brief doesn't call for any of them.
+**Not in scope:** user accounts / OAuth, REST API, React, payments. (v2 added SQLite for week history and Docker for deployment.)
 
 ---
 
@@ -97,10 +97,11 @@ The final report text is rendered in Python using the format of brief §1.6 Outp
 - [ ] `data/sample/reviews_week40_full.csv`: 200+ synthetic rows across all platforms, languages, categories and urgencies (for the 200+ row check)
 - [ ] README run instructions
 
-### Stretch (post-MVP, only after all of the above pass)
-- [ ] Week-over-week comparison with trend arrows (upload last week's enriched CSV)
-- [ ] Replies in the same language as the review
-- [ ] Email the weekly report automatically every Monday
+### Stretch goals (v2 - built)
+- [x] Week-over-week comparison with trend arrows (weeks stored in SQLite; KPI deltas, report section, multi-week charts)
+- [x] Replies in the same language as the review (+ English version for staff)
+- [x] Email the weekly report automatically every Monday (scheduler container, SMTP, reminder if no new week)
+- [x] Role workspaces: Business Owner / Operations Manager / Customer Support with permissions and optional PINs
 
 ---
 

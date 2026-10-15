@@ -7,13 +7,14 @@
 ReviewLens is a Streamlit app that runs a **fixed LangChain pipeline** over a weekly CSV of customer reviews:
 validate → classify each review (structured output, batched) → aggregate in pandas → weekly report chain → dashboard + CSV export.
 
-It's a Gen AI track project: we design the steps and the LLM does each step. No agents or tool-calling loops, and no database, auth or API server.
+It's a Gen AI track project: we design the steps and the LLM does each step. No agents or tool-calling loops, and no API server. Analysed weeks are stored in a small SQLite database (week history, edits, email log); a separate scheduler container emails the weekly report. Access is by role workspace (Business Owner / Operations Manager / Customer Support) with optional per-role PINs - there are no user accounts.
 
 ## Project structure
 
 ```
 ReviewLens_CustomerFeedbackAnalyzer/
 ├── app.py                       # Streamlit entry point (UI only, no business logic)
+├── .streamlit/config.toml       # theme (navy sidebar, Inter) + server settings
 ├── reviewlens/
 │   ├── __init__.py
 │   ├── config.py                # Settings from .env (LLM_MODEL, MAX_CONCURRENCY, MAX_RETRIES, BATCH_SIZE)
@@ -27,8 +28,16 @@ ReviewLens_CustomerFeedbackAnalyzer/
 │   │   ├── loader.py            # read + validate CSV
 │   │   ├── aggregate.py         # pandas stats (the ONLY source of numbers)
 │   │   └── export.py            # enriched CSV bytes (utf-8-sig)
-│   └── report_render.py         # stats + WeeklyInsights → report text (brief §1.6 format)
-├── data/sample/                 # sample CSVs (brief rows + 200+ synthetic rows)
+│   ├── report_render.py         # stats + WeeklyInsights (+ previous week) → report text
+│   ├── storage.py               # SQLite: weeks, reviews (edits, handled), settings, email_log
+│   ├── pipeline.py              # analyse_and_save, regenerate_report, classify_one, demo history import
+│   ├── trends.py                # week-over-week Delta maths + multi-week series (pandas only)
+│   ├── roles.py                 # role definitions, permission matrix, PIN check
+│   ├── emailer.py               # weekly email (HTML + text + CSV) over SMTP, send + log
+│   ├── scheduler.py             # long-running Monday job (own container)
+│   └── ui/                      # Streamlit presentation only: charts.py (Altair palette), components.py
+├── data/sample/                 # weeks 38-41 raw CSVs (EN/Tamil/Tanglish) + history/ (pre-analysed W38-W40)
+├── scripts/                     # make_sample.py (raw weeks), seed_history.py (analyse -> history/)
 ├── tests/                       # pytest; LLM faked unless -m live
 ├── docs/USE_CASE.md             # source brief
 ├── PRPs/  agents/  skills/  .claude/commands/
@@ -50,6 +59,9 @@ ReviewLens_CustomerFeedbackAnalyzer/
 9. **`temperature=0`** for classification. The report chain may use the same model.
 10. **UI holds no logic.** `app.py` calls `reviewlens` functions and caches results in `st.session_state`. Widget interactions must never re-trigger LLM calls.
 11. **Excel-safe export.** Write the CSV with `encoding="utf-8-sig"` so Tamil script survives a double-click open in Excel.
+12. **Replies in the customer's language.** `reply_english` is written first, `suggested_reply` renders it in the review's language/script. A Tamil/Tanglish reply identical to the English one is retried, then accepted.
+13. **Permissions live in `roles.py`.** The UI checks `R.<PERM> in role.perms`; storage writes take an `allowed` field whitelist so a role can never write fields it may not edit.
+14. **Trends compare stored weeks only** (previous ISO week in the database), computed by `trends.py`.
 
 ## Code standards
 

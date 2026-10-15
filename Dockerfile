@@ -3,7 +3,7 @@ FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+    PIP_DISABLE_PIP_VERSION_CHECK=1     DB_PATH=/app/storage/reviewlens.db     TZ=Asia/Kolkata
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ COPY app.py .
 COPY reviewlens/ reviewlens/
 COPY data/sample/ data/sample/
 
-RUN useradd --create-home --uid 1000 appuser && chown -R appuser /app
+RUN useradd --create-home --uid 1000 appuser && mkdir -p /app/storage && chown -R appuser /app
 USER appuser
 
 EXPOSE 8501

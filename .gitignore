@@ -27,3 +27,6 @@ coverage/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local SQLite history
+storage/

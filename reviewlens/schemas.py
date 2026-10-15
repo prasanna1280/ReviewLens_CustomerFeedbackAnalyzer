@@ -20,6 +20,7 @@ ANALYSIS_FIELDS: tuple[str, ...] = (
     "urgency",
     "language",
     "summary",
+    "reply_english",
     "suggested_reply",
 )
 
@@ -37,7 +38,18 @@ class ReviewAnalysis(BaseModel):
         description="English; Tamil (Tamil script); Tanglish (Tamil in Latin letters, often mixed with English)."
     )
     summary: str = Field(description="ONE sentence in English, even if the review is Tamil or Tanglish.")
-    suggested_reply: str = Field(description="Polite, ready-to-post reply in English. No placeholders like [name].")
+    reply_english: str = Field(
+        description="The polite, ready-to-post reply written in English. No placeholders like [name]."
+    )
+    suggested_reply: str = Field(
+        description="reply_english rendered in the customer's own language and script: English review -> same "
+        "English text; Tamil script review -> Tamil script; Tanglish review -> Tanglish (Tamil words written in "
+        "Latin letters, mixed with English the way the customer wrote)."
+    )
+
+    def reply_language_ok(self) -> bool:
+        """False when a Tamil/Tanglish review got a reply that just repeats the English one."""
+        return self.language == "English" or self.suggested_reply.strip() != self.reply_english.strip()
 
 
 class Theme(BaseModel):

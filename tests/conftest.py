@@ -18,7 +18,10 @@ def make_analysis(**over) -> ReviewAnalysis:
         language="English",
         summary="Order arrived late and cold.",
         suggested_reply="We are sorry about the delay.",
+        reply_english="We are sorry about the delay.",
     )
+    if over.get("language") in ("Tamil", "Tanglish") and "suggested_reply" not in over:
+        base["suggested_reply"] = "Delay aanadhukku romba sorry."
     return ReviewAnalysis(**{**base, **over})
 
 

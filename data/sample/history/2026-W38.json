@@ -1,0 +1,181 @@
+{
+ "week_id": "2026-W38",
+ "source_name": "reviews_week38.csv",
+ "model": "openai:gpt-5.4-mini",
+ "insights": {
+  "top_complaints": [
+   {
+    "theme": "Extra charges on bill",
+    "review_ids": [
+     "R-844",
+     "R-852",
+     "R-878",
+     "R-921",
+     "R-937",
+     "R-939",
+     "R-946",
+     "R-947",
+     "R-1000",
+     "R-801",
+     "R-888",
+     "R-914",
+     "R-841",
+     "R-972",
+     "R-967",
+     "R-993",
+     "R-817",
+     "R-922",
+     "R-948",
+     "R-958",
+     "R-1008"
+    ],
+    "note": "mostly Swiggy, Amazon and Google; English, Tamil, Tanglish; steady across the week"
+   },
+   {
+    "theme": "Late delivery",
+    "review_ids": [
+     "R-814",
+     "R-835",
+     "R-855",
+     "R-961",
+     "R-899",
+     "R-916",
+     "R-933",
+     "R-986",
+     "R-1001",
+     "R-832",
+     "R-869",
+     "R-895",
+     "R-953",
+     "R-996",
+     "R-906",
+     "R-970",
+     "R-831",
+     "R-885",
+     "R-919",
+     "R-840"
+    ],
+    "note": "mostly Swiggy and Amazon; evenings and Friday nights; English and Tanglish"
+   },
+   {
+    "theme": "Small portion size",
+    "review_ids": [
+     "R-812",
+     "R-921",
+     "R-932",
+     "R-952",
+     "R-987",
+     "R-838",
+     "R-857",
+     "R-929",
+     "R-1003",
+     "R-896",
+     "R-882"
+    ],
+    "note": "across Amazon, Swiggy, Zomato and Google; English, Tamil, Tanglish; mostly medium urgency"
+   }
+  ],
+  "top_praise": [
+   {
+    "theme": "Tasty biryani and overall food quality",
+    "review_ids": [
+     "R-806",
+     "R-853",
+     "R-898",
+     "R-920",
+     "R-927",
+     "R-959",
+     "R-818",
+     "R-824",
+     "R-839",
+     "R-865",
+     "R-874",
+     "R-900",
+     "R-909",
+     "R-912",
+     "R-924",
+     "R-941",
+     "R-964",
+     "R-805",
+     "R-809",
+     "R-845",
+     "R-866",
+     "R-904",
+     "R-955",
+     "R-994",
+     "R-847",
+     "R-890",
+     "R-893",
+     "R-936",
+     "R-991",
+     "R-810",
+     "R-854",
+     "R-860",
+     "R-901",
+     "R-934",
+     "R-935",
+     "R-837",
+     "R-856",
+     "R-870",
+     "R-886",
+     "R-938",
+     "R-954",
+     "R-956",
+     "R-982"
+    ],
+    "note": "spread across all platforms; English, Tamil and Tanglish; strongest theme all week"
+   },
+   {
+    "theme": "Neat, leak-proof packaging",
+    "review_ids": [
+     "R-819",
+     "R-825",
+     "R-827",
+     "R-902",
+     "R-908",
+     "R-872",
+     "R-962",
+     "R-983",
+     "R-884",
+     "R-887",
+     "R-810",
+     "R-813",
+     "R-820",
+     "R-846",
+     "R-848",
+     "R-881",
+     "R-913",
+     "R-915",
+     "R-928",
+     "R-977",
+     "R-978",
+     "R-981"
+    ],
+    "note": "especially Amazon, Swiggy and Google; mostly Tamil and English; frequent with delivery orders"
+   },
+   {
+    "theme": "Friendly and courteous staff",
+    "review_ids": [
+     "R-829",
+     "R-876",
+     "R-905",
+     "R-897",
+     "R-942",
+     "R-944",
+     "R-843",
+     "R-826",
+     "R-879",
+     "R-971",
+     "R-979"
+    ],
+    "note": "mostly Google, Zomato, Amazon and Swiggy; English, Tamil and Tanglish"
+   }
+  ],
+  "action_items": [
+   "Audit all menu, add-on and packing/service charge displays this week, then standardise bill screens and receipts so customers see the full price before paying.",
+   "Tighten delivery handoff for late-evening and Friday orders by adding dispatch cut-offs, rider escalation for delays, and immediate customer updates when ETAs slip.",
+   "Review portion controls for biryani and combo meals, especially on Swiggy and Amazon orders, and set a kitchen check so small-portion complaints are caught before dispatch."
+  ]
+ },
+ "report_text": "WEEKLY FEEDBACK REPORT  |  14 Sep to 20 Sep 2026\nTotal reviews: 210   Positive 45%   Neutral 12%   Negative 43%\n\nTOP 3 COMPLAINTS\n  1. Extra charges on bill .... 21 reviews  (mostly Swiggy, Amazon and Google; English, Tamil, Tanglish; steady across the week)\n  2. Late delivery ............ 20 reviews  (mostly Swiggy and Amazon; evenings and Friday nights; English and Tanglish)\n  3. Small portion size ....... 11 reviews  (across Amazon, Swiggy, Zomato and Google; English, Tamil, Tanglish; mostly medium urgency)\n\nTOP PRAISE\n  Tasty biryani and overall food quality (43 mentions), Neat, leak-proof packaging (22 mentions), Friendly and courteous staff (11 mentions)\n\nURGENT: 27 reviews need a reply within 24 hours\n\nACTION ITEMS\n  1. Audit all menu, add-on and packing/service charge displays this week, then standardise bill screens and receipts so customers see the full price before paying.\n  2. Tighten delivery handoff for late-evening and Friday orders by adding dispatch cut-offs, rider escalation for delays, and immediate customer updates when ETAs slip.\n  3. Review portion controls for biryani and combo meals, especially on Swiggy and Amazon orders, and set a kitchen check so small-portion complaints are caught before dispatch."
+}

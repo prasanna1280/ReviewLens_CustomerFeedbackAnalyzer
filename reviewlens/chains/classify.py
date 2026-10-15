@@ -36,9 +36,11 @@ def _run_batch(
             if not isinstance(out, (ReviewAnalysis, Exception)):
                 out = TypeError(f"unexpected output type {type(out).__name__}")
             results[i] = out
-        pending = [i for i in pending if isinstance(results[i], Exception)]
+        # hard failures (invalid values, API errors) and soft failures (reply not in the review's language)
+        # are both retried; after the last attempt a soft failure is accepted with its English reply
+        pending = [i for i in pending if isinstance(results[i], Exception) or not results[i].reply_language_ok()]
         if pending and attempt < max_retries:
-            log.warning("attempt %d: %d review(s) failed, retrying", attempt + 1, len(pending))
+            log.warning("attempt %d: %d review(s) to retry", attempt + 1, len(pending))
     return results
 
 
