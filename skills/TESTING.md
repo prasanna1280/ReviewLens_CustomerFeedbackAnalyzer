@@ -1,180 +1,105 @@
 # Testing Skill
 
-> pytest (Backend) + Vitest (Frontend)
+> pytest. Offline by default with a fake LLM; real-model tests are opt-in with `-m live`.
 
 ---
 
-## Backend Setup
+## Setup
 
-```bash
-pip install pytest pytest-asyncio pytest-cov httpx
+```toml
+# pyproject.toml
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["live: calls a real LLM (needs .env); run with -m live"]
+addopts = "-m 'not live'"
+
+[tool.ruff]
+line-length = 110
 ```
 
 ---
 
-## Test Fixtures
+## Faking the LLM
+
+Chains take the model as a parameter, so tests can bypass providers entirely. The cleanest fake replaces the *whole structured chain* with a `RunnableLambda`:
 
 ```python
 # tests/conftest.py
 import pytest
-from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from app.main import app
-from app.database import Base, get_db
-from app.auth.jwt import create_access_token, hash_password
-from app.models.user import User
+from langchain_core.runnables import RunnableLambda
+from reviewlens.schemas import ReviewAnalysis
 
-TEST_DB_URL = "postgresql://test:test@localhost/test_db"
-engine = create_engine(TEST_DB_URL)
-TestSession = sessionmaker(bind=engine)
 
-@pytest.fixture
-def db():
-    Base.metadata.create_all(bind=engine)
-    session = TestSession()
-    yield session
-    session.close()
-    Base.metadata.drop_all(bind=engine)
+def make_analysis(**over) -> ReviewAnalysis:
+    base = dict(
+        sentiment="negative",
+        category="delivery",
+        urgency="high",
+        language="English",
+        summary="Order arrived late and cold.",
+        suggested_reply="Sorry about that.",
+    )
+    return ReviewAnalysis(**{**base, **over})
+
 
 @pytest.fixture
-def client(db):
-    app.dependency_overrides[get_db] = lambda: db
-    with TestClient(app) as c:
-        yield c
-    app.dependency_overrides.clear()
+def fake_chain():
+    return RunnableLambda(lambda row: make_analysis())
+
 
 @pytest.fixture
-def test_user(db):
-    user = User(email="test@example.com", hashed_password=hash_password("password123"), full_name="Test")
-    db.add(user)
-    db.commit()
-    return user
+def flaky_chain():
+    """Fails the first call for each review_text, then succeeds: exercises retry."""
+    seen: set[str] = set()
+
+    def run(row):
+        if row["review_text"] not in seen:
+            seen.add(row["review_text"])
+            raise ValueError("category 'service' not in allowed list")
+        return make_analysis()
+
+    return RunnableLambda(run)
+
 
 @pytest.fixture
-def auth_headers(test_user):
-    token = create_access_token({"sub": str(test_user.id)})
-    return {"Authorization": f"Bearer {token}"}
+def broken_chain():
+    def run(row):
+        raise ValueError("invalid output")
+
+    return RunnableLambda(run)
 ```
+
+`RunnableLambda.batch(..., return_exceptions=True)` behaves like the real chain, so `classify_reviews` is tested exactly as it runs in production.
 
 ---
 
-## API Tests
+## Must-have tests (mapped to brief §1.8)
 
-```python
-# tests/test_auth.py
-def test_register(client):
-    response = client.post("/api/v1/auth/register", json={"email": "new@test.com", "password": "password123"})
-    assert response.status_code == 201
-    assert response.json()["email"] == "new@test.com"
-
-def test_login(client, test_user):
-    response = client.post("/api/v1/auth/login", data={"username": test_user.email, "password": "password123"})
-    assert response.status_code == 200
-    assert "access_token" in response.json()
-
-def test_me_unauthorized(client):
-    assert client.get("/api/v1/auth/me").status_code == 401
-
-def test_me_authorized(client, auth_headers):
-    response = client.get("/api/v1/auth/me", headers=auth_headers)
-    assert response.status_code == 200
-```
+| Test file | Covers |
+|-----------|--------|
+| `test_loader.py` | missing column → `InvalidCSVError`; empty text dropped + logged; duplicate id dropped; BOM file loads; Tamil text round-trips |
+| `test_classify.py` | happy path; `flaky_chain` → all ok after retry; `broken_chain` → all `needs_review`, no exception escapes; 250-row input completes |
+| `test_schemas.py` | invalid category / sentiment / urgency → `ValidationError` |
+| `test_aggregate.py` | every count equals `df.value_counts()`; % over analysed rows; zero-filled categories |
+| `test_report.py` | hallucinated ids dropped; theme count = len(valid ids); rendered text contains pandas numbers; exactly 3 action items |
+| `test_export.py` | bytes start with UTF-8 BOM; re-read equals original; Tamil preserved |
+| `test_config.py` | settings read from env; no key literal anywhere in `reviewlens/` (grep for `sk-`, `AIza`) |
+| `test_live.py` (`@pytest.mark.live`) | brief rows R-1041..R-1043 → R-1042 is negative/delivery/high; R-1043 language Tanglish, summary English |
 
 ---
 
-## Service Tests
-
-```python
-# tests/test_user_service.py
-import pytest
-from app.services import user_service
-from app.exceptions import NotFoundError
-
-def test_get_user(db, test_user):
-    user = user_service.get_user(db, test_user.id)
-    assert user.email == test_user.email
-
-def test_get_user_not_found(db):
-    with pytest.raises(NotFoundError):
-        user_service.get_user(db, 99999)
-```
-
----
-
-## Frontend Setup
+## Commands
 
 ```bash
-npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event msw
+pytest -q                 # offline
+pytest -m live -q         # real model, costs a few calls
+pytest --cov=reviewlens   # optional coverage
+ruff check .
 ```
 
----
+## Manual check (UI)
 
-## Component Tests
-
-```typescript
-// src/__tests__/LoginForm.test.tsx
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { LoginForm } from '../components/forms/LoginForm';
-
-test('renders login form', () => {
-  render(<LoginForm />);
-  expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-  expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-});
-
-test('submits form', async () => {
-  const user = userEvent.setup();
-  render(<LoginForm />);
-  await user.type(screen.getByLabelText(/email/i), 'test@example.com');
-  await user.type(screen.getByLabelText(/password/i), 'password123');
-  await user.click(screen.getByRole('button', { name: /sign in/i }));
-});
-```
-
----
-
-## Hook Tests
-
-```typescript
-// src/__tests__/usePosts.test.tsx
-import { renderHook, waitFor } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { usePosts } from '../hooks/usePosts';
-
-const wrapper = ({ children }) => (
-  <QueryClientProvider client={new QueryClient()}>{children}</QueryClientProvider>
-);
-
-test('fetches posts', async () => {
-  const { result } = renderHook(() => usePosts(), { wrapper });
-  await waitFor(() => expect(result.current.isSuccess).toBe(true));
-});
-```
-
----
-
-## Run Tests
-
-```bash
-# Backend
-pytest                    # Run all
-pytest -v                 # Verbose
-pytest --cov=app         # With coverage
-pytest --cov-fail-under=80  # Require 80%
-
-# Frontend
-npm test                  # Run tests
-npm run test:coverage    # With coverage
-```
-
----
-
-## Best Practices
-
-- Use fixtures for test data
-- Test success AND error cases
-- Mock external dependencies
-- Target 80%+ coverage
-- Clean up between tests
+1. `streamlit run app.py` → upload `data/sample/reviews_week40_full.csv` → Analyse.
+2. Toggle HIGH urgency and confirm only `high` rows show.
+3. Download the CSV, open it in Excel, and check the Tamil text displays correctly.
+4. Compare the report's percentages with the dashboard KPI row. They must be identical.

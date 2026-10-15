@@ -14,10 +14,6 @@ venv/
 .coverage
 htmlcov/
 
-# Node
-node_modules/
-dist/
-
 # OS / IDE
 .DS_Store
 Thumbs.db
@@ -28,4 +24,6 @@ Thumbs.db
 *.db
 *.sqlite3
 coverage/
-*.tsbuildinfo
+
+# Streamlit
+.streamlit/secrets.toml

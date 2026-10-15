@@ -1,220 +1,108 @@
-# 🎯 ORCHESTRATOR AGENT
+# ORCHESTRATOR
 
-> The main coordinator that manages all sub-agents and ensures successful feature delivery.
-
----
-
-## Role
-
-I am the **ORCHESTRATOR** - the conductor of the development orchestra. I:
-- Analyze complex tasks and break them into sub-tasks
-- Assign work to specialized agents
-- Manage dependencies between agents
-- Track progress and handle blockers
-- Combine outputs into cohesive solutions
-- Ensure quality through validation gates
+> Coordinates the build of ReviewLens. Small project (2-3 day scope), so: 4 agents, 4 phases, contracts first.
 
 ---
 
-## When I'm Activated
+## Agents
 
-I'm activated when:
-- PRP execution begins (`/execute-prp`)
-- Complex multi-part features are requested
-- Multiple agents need coordination
-- User explicitly requests parallel execution
-
----
-
-## My Process
-
-### 1. ANALYZE
-```yaml
-input: PRP or feature request
-output: 
-  - List of sub-tasks
-  - Agent assignments
-  - Dependency graph
-  - Execution order
-```
-
-### 2. PLAN
-```
-Phase 1 (Parallel):
-  - research-agent: Research best practices
-  - database-agent: Create models
-  - devops-agent: Setup infrastructure
-
-Phase 2 (Sequential):  
-  - backend-agent: Build APIs (needs Phase 1)
-
-Phase 3 (Sequential):
-  - frontend-agent: Build UI (needs Phase 2)
-
-Phase 4 (Parallel):
-  - test-agent: Write tests
-  - review-agent: Code review
-```
-
-### 3. EXECUTE
-```
-For each phase:
-  1. Dispatch tasks to agents
-  2. Monitor progress
-  3. Handle errors/blockers
-  4. Validate phase completion
-  5. Proceed to next phase
-```
-
-### 4. VALIDATE
-```
-After each phase:
-  - Run specified validation commands
-  - Verify all outputs exist
-  - Check quality gates pass
-  - Log results
-```
-
-### 5. COMBINE
-```
-After all phases:
-  - Ensure all parts integrate
-  - Run full test suite
-  - Verify build succeeds
-  - Generate summary report
-```
+| Agent | Owns | Reads |
+|-------|------|-------|
+| ORCHESTRATOR (me) | Phase 0 contracts, integration, final report | `CLAUDE.md`, `INITIAL.md`, the PRP |
+| CHAIN-AGENT | `reviewlens/llm.py`, `prompts.py`, `chains/` | `agents/chain-agent.md`, `skills/LANGCHAIN.md` |
+| DATA-AGENT | `reviewlens/data/`, `report_render.py`, `data/sample/`, `scripts/make_sample.py` | `agents/data-agent.md`, `skills/DATA.md` |
+| UI-AGENT | `app.py` | `agents/ui-agent.md`, `skills/STREAMLIT.md` |
+| TEST-AGENT | `tests/`, checklist review | `agents/test-agent.md`, `skills/TESTING.md` |
 
 ---
 
-## Agent Dispatch Format
+## Phases
 
-When I assign work to an agent:
+```
+Phase 0  ORCHESTRATOR (sequential)   contracts: schemas.py, config.py, package skeleton,
+                                     requirements.txt, pyproject.toml, .env.example
+                                     ── Gate 0: pip install -r requirements.txt; python -c "import reviewlens.schemas"
+Phase 1  CHAIN-AGENT ∥ DATA-AGENT    both code against Phase 0 contracts only
+                                     ── Gate 1: ruff check reviewlens; python scripts/make_sample.py
+Phase 2  UI-AGENT ∥ TEST-AGENT       UI wires Phase 1 functions; tests cover Phase 1 modules
+                                     ── Gate 2: pytest -q (offline); ruff check .
+Phase 3  ORCHESTRATOR                integration: live smoke (if .env present), done-checklist review
+                                     ── Final gate: see below
+```
+
+Why contracts first: `schemas.py` (allowed values, `ReviewAnalysis`, `WeeklyInsights`) and `config.py` (`settings`) are imported by every other module. Freezing them in Phase 0 lets Phases 1 and 2 run in parallel without naming conflicts.
+
+### Function signatures frozen in Phase 0 (agents must not change them)
+
+```python
+# chains/classify.py
+build_classify_chain(llm) -> Runnable
+classify_reviews(chain, rows: list[dict], max_concurrency: int, max_retries: int, on_progress=None) -> list[ReviewAnalysis | Exception]
+# chains/report.py
+build_report_chain(llm) -> Runnable
+generate_insights(chain, df_ok: pd.DataFrame, stats: dict) -> WeeklyInsights   # returns SANITIZED insights
+# data/loader.py
+load_reviews(file) -> LoadResult            # raises InvalidCSVError
+enrich(df, results) -> pd.DataFrame
+# data/aggregate.py
+compute_stats(df) -> dict
+# report_render.py
+render_report(stats: dict, insights: WeeklyInsights) -> str
+# data/export.py
+to_excel_csv(df) -> bytes
+```
+
+Write these as stubs (`raise NotImplementedError`) in Phase 0 so imports work from the start.
+
+---
+
+## Dispatch format
 
 ```yaml
-TO: backend-agent
-TASK: Create authentication API endpoints
-CONTEXT:
-  - Read: skills/BACKEND.md
-  - Follow: examples/auth_router.py
-INPUTS:
-  - User model from database-agent
-  - Schema definitions
-OUTPUTS:
-  - backend/app/routers/auth.py
-  - backend/app/services/auth_service.py
-  - backend/app/schemas/auth.py
-VALIDATION:
-  - ruff check backend/app/routers/auth.py
-  - pytest backend/tests/test_auth.py -v
-DEADLINE: Before frontend-agent starts
+TO: chain-agent
+TASK: Implement classify + report chains
+READ: [agents/chain-agent.md, skills/LANGCHAIN.md, CLAUDE.md]
+CONTRACTS: reviewlens/schemas.py, reviewlens/config.py (do not edit)
+OUTPUTS: [reviewlens/llm.py, reviewlens/prompts.py, reviewlens/chains/classify.py, reviewlens/chains/report.py]
+VALIDATION: [ruff check reviewlens/chains, python -c "from reviewlens.chains.classify import classify_reviews"]
 ```
+
+Run parallel phases as multiple Agent calls in **one** response.
 
 ---
 
-## Status Tracking
+## Conflict rules
 
-I maintain a status board:
+- A contract needs changing → only the ORCHESTRATOR edits it, then notifies all agents.
+- Allowed-value lists exist only in `schemas.py`. Any duplicate gets removed.
+- An agent must not edit files outside its "Owns" column.
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    ORCHESTRATOR STATUS                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Phase 1: Foundation                                            │
-│  ├─ database-agent    [✅ Complete] 3m 15s                      │
-│  └─ devops-agent      [✅ Complete] 2m 45s                      │
-│                                                                 │
-│  Phase 2: Backend                                               │
-│  └─ backend-agent     [🔄 Running]  4m 20s  (65%)              │
-│                                                                 │
-│  Phase 3: Frontend                                              │
-│  └─ frontend-agent    [⏳ Waiting]  -                           │
-│                                                                 │
-│  Phase 4: Quality                                               │
-│  ├─ test-agent        [⏳ Waiting]  -                           │
-│  └─ review-agent      [⏳ Waiting]  -                           │
-│                                                                 │
-│  Overall: ████████░░░░░░░░ 45%                                  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+## Error recovery
+
+1. Read the failing gate output.
+2. Route the fix to the owning agent with the exact error.
+3. After 2 failed fix attempts, stop and report to the user with the error and what was tried.
 
 ---
 
-## Conflict Resolution
+## Final gate
 
-When agents produce conflicting outputs:
-
-```yaml
-CONFLICT:
-  type: naming_mismatch
-  agent_1: backend-agent (UserResponse)
-  agent_2: frontend-agent (UserData)
-  
-RESOLUTION:
-  decision: Use backend naming (UserResponse)
-  reason: API contract defined by backend
-  action: Update frontend types to match
+```bash
+ruff check .
+pytest -q
+pytest -m live -q          # only if .env has a key; otherwise report "skipped: no key"
+streamlit run app.py       # manual: upload reviews_week40_full.csv, check §1.8 items
 ```
 
----
-
-## Error Recovery
-
-When an agent fails:
-
-```yaml
-ERROR:
-  agent: backend-agent
-  task: Create auth router
-  error: "Import error - User model not found"
-  
-RECOVERY:
-  1. Check database-agent output
-  2. Verify model file exists
-  3. Check __init__.py exports
-  4. Retry task with fixed context
-  
-ESCALATE_IF:
-  - 3 retry attempts failed
-  - Critical dependency missing
-  - User intervention needed
-```
-
----
-
-## Final Report Format
+## Final report
 
 ```
-═══════════════════════════════════════════════════════════════════
-                    ORCHESTRATION COMPLETE
-═══════════════════════════════════════════════════════════════════
-
-Feature: [Feature Name]
-Duration: [Total time]
-Status: ✅ SUCCESS
-
-Agent Performance:
-  database-agent   ✅  3m 15s
-  backend-agent    ✅  8m 42s
-  frontend-agent   ✅  7m 18s
-  test-agent       ✅  4m 33s
-  review-agent     ✅  2m 10s
-  ─────────────────────────
-  Total:              25m 58s
-
-Deliverables:
-  Files Created: 12
-  API Endpoints: 6
-  Components: 4
-  Tests: 24 (all passing)
-  Coverage: 85%
-
-Quality Gates:
-  ✅ Lint passed
-  ✅ Types checked
-  ✅ Tests passed
-  ✅ Build succeeded
-
-═══════════════════════════════════════════════════════════════════
+REVIEWLENS BUILD
+Status: SUCCESS | PARTIAL
+Files: <n>   Tests: <passed>/<total> (live: ran|skipped)
+Done checklist (brief §1.8):
+  [x] 200+ rows ...            evidence: test_classify::test_250_rows
+  [x] 6 fields, allowed values evidence: ...
+  ...
+Run: streamlit run app.py
 ```

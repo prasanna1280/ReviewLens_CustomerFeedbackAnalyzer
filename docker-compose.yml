@@ -1,0 +1,12 @@
+# Local:      docker compose up --build        -> http://localhost:8501
+# Production: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+services:
+  reviewlens:
+    build: .
+    image: reviewlens:latest
+    env_file:
+      - path: .env
+        required: false
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8501:8501"

@@ -1,0 +1,16 @@
+# Production override for a VPS that already runs Traefik (host network, `letsencrypt` cert resolver).
+# Requires REVIEWLENS_DOMAIN in .env and a DNS A record pointing that domain at the VPS.
+services:
+  reviewlens:
+    ports: !reset []
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.reviewlens.entrypoints=websecure
+      - traefik.http.routers.reviewlens.rule=Host(`${REVIEWLENS_DOMAIN:?set REVIEWLENS_DOMAIN in .env}`)
+      - traefik.http.routers.reviewlens.tls=true
+      - traefik.http.routers.reviewlens.tls.certresolver=letsencrypt
+      - traefik.http.routers.reviewlens.middlewares=reviewlens-headers
+      - traefik.http.middlewares.reviewlens-headers.headers.stsSeconds=31536000
+      - traefik.http.middlewares.reviewlens-headers.headers.contentTypeNosniff=true
+      - traefik.http.middlewares.reviewlens-headers.headers.referrerPolicy=strict-origin-when-cross-origin
+      - traefik.http.services.reviewlens.loadbalancer.server.port=8501
