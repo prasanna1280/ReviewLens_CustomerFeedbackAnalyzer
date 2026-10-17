@@ -53,6 +53,28 @@ CSS = """
 .rl-theme-count {margin-left:.5rem; font-size:.75rem; font-weight:600; color:#B91C1C; background:#FEF2F2;
   border-radius:999px; padding:.1rem .5rem;}
 .rl-theme-note {font-size:.82rem; color:#64748B; margin-top:.15rem;}
+/* responsive: columns follow the width left for content (sidebar open or not), not the screen width */
+[data-testid="stMainBlockContainer"] {container-type:inline-size;}
+@container (max-width: 720px) {
+  [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"]) {flex-wrap:wrap !important;}
+  [data-testid="stColumn"] {flex:1 1 100% !important; min-width:100% !important; width:100% !important;}
+  .st-key-rl_kpis [data-testid="stColumn"] {flex:1 1 calc(33.3% - 1rem) !important;
+    min-width:calc(33.3% - 1rem) !important;}
+  .st-key-rl_filters [data-testid="stColumn"] {flex:1 1 calc(50% - 1rem) !important;
+    min-width:calc(50% - 1rem) !important;}
+  .st-key-rl_filters [data-testid="stColumn"]:first-child {flex-basis:100% !important; min-width:100% !important;}
+}
+@container (max-width: 480px) {
+  .st-key-rl_kpis [data-testid="stColumn"] {flex:1 1 calc(50% - 1rem) !important;
+    min-width:calc(50% - 1rem) !important;}
+}
+/* filter pills wrap onto a second line instead of running off narrow screens */
+[data-testid="stButtonGroup"] > div {flex-wrap:wrap;}
+/* urgent cards: two per row when there is room, one per row otherwise - queue order is kept either way */
+.st-key-rl_urgent_grid > * {flex:1 1 calc(50% - 1rem); min-width:min(100%, 360px);}
+@media (max-width: 640px) {.block-container {padding-top:4.25rem !important;}}  /* clear the mobile top bar */
+/* iOS Safari zooms into inputs with text under 16px */
+@supports (-webkit-touch-callout: none) {input, textarea, select {font-size:16px !important;}}
 </style>
 """
 
@@ -136,7 +158,9 @@ def kpi_row(stats: dict, deltas: dict[str, Delta] | None = None, prev_label: str
         ("Urgent", f"{stats['urgent']}", "urgent", "HIGH urgency - reply today: health, refund, abuse, wrong order"),
         ("Average rating", f"{avg:.1f} ★" if avg is not None else "–", "avg_rating", f"out of 5{vs}"),
     ]
-    for col, (label, value, key, help_text) in zip(st.columns(5), items, strict=True):
+    with st.container(key="rl_kpis"):  # key lets the CSS wrap the row to 3 / 2 cards on narrow screens
+        cols = st.columns(5)
+    for col, (label, value, key, help_text) in zip(cols, items, strict=True):
         delta, color = _metric_delta(d.get(key))
         col.metric(label, value, delta=delta, delta_color=color, help=help_text, border=True)
 

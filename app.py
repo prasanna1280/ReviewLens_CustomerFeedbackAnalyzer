@@ -48,7 +48,7 @@ st.set_page_config(
     page_title="ReviewLens · Customer Feedback Intelligence",
     page_icon="🔎",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",  # expanded on desktop, collapsed on phones so it doesn't cover the page
 )
 ui.inject_css()
 
@@ -258,9 +258,9 @@ def urgent_tab(store: Store, role: R.Role, week_id: str, df: pd.DataFrame) -> No
         store.update_review(week_id, rid, {"suggested_reply": reply, "reply_english": reply_en}, allowed=SUPPORT_FIELDS)
         st.toast(f"Reply for {rid} saved", icon=":material/check:")
 
-    left, right = st.columns(2, gap="medium")
-    for i, row in enumerate(view.to_dict("records")):
-        with left if i % 2 == 0 else right:
+    # wrapping grid (not two columns) so cards stay in queue order when they stack on a phone
+    with st.container(horizontal=True, wrap=True, gap="medium", key="rl_urgent_grid"):
+        for row in view.to_dict("records"):
             ui.urgent_card(
                 row,
                 can_handle=R.MARK_HANDLED in role.perms,
@@ -298,7 +298,7 @@ REVIEW_ORDER = list(REVIEW_COLUMN_CONFIG)
 
 
 def reviews_tab(store: Store, role: R.Role, week_id: str, df: pd.DataFrame) -> None:
-    with st.container(border=True):
+    with st.container(border=True, key="rl_filters"):
         f = st.columns([2, 1, 1, 1, 1, 1])
         query = f[0].text_input("Search", placeholder="Search review text or summary", type="search")
         sent = f[1].multiselect("Sentiment", SENTIMENTS)
